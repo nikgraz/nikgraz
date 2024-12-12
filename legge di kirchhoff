@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legge di Kirchhoff</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .example {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .law {
+            background-color: #d1ffd1;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #4caf50;
+            margin-bottom: 20px;
+        }
+        .formula {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .calculator {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+        }
+        .input-field {
+            margin-bottom: 10px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Leggi di Kirchhoff</h1>
+    
+    <div class="section">
+        <h2>Legge di Kirchhoff per le correnti (KCL)</h2>
+        <p>La legge di Kirchhoff per le correnti afferma che la somma algebrica delle correnti che entrano ed escono da un nodo è zero. In altre parole, la corrente totale che entra in un nodo è uguale alla corrente totale che esce dal nodo.</p>
+        
+        <div class="law">
+            <p><strong>Formula:</strong></p>
+            <p class="formula">Σ I_in = Σ I_out</p>
+        </div>
+        
+        <div class="example">
+            <p>Esempio: Se tre correnti entrano in un nodo con valori I₁ = 3 A, I₂ = 2 A, e I₃ = 1 A, e una corrente I₄ = 6 A esce dal nodo, la legge di Kirchhoff per le correnti ci dice che:</p>
+            <p>I₁ + I₂ + I₃ = I₄</p>
+            <p>3 A + 2 A + 1 A = 6 A</p>
+            <p>La legge è verificata.</p>
+        </div>
+    </div>
+
+    <!-- Calcolatrice Legge delle Correnti di Kirchhoff (KCL) -->
+    <div class="calculator">
+        <h2>Calcolatrice Legge delle Correnti di Kirchhoff (KCL)</h2>
+        <p>Inserisci le correnti che entrano ed escono dal nodo per verificare la legge.</p>
+        
+        <div class="input-field">
+            <label for="currentIn">Correnti che entrano (in Ampere): </label>
+            <input type="number" id="currentIn" placeholder="Somma delle correnti entranti">
+        </div>
+        <div class="input-field">
+            <label for="currentOut">Correnti che escono (in Ampere): </label>
+            <input type="number" id="currentOut" placeholder="Somma delle correnti uscenti">
+        </div>
+        
+        <button onclick="calculateKCL()">Calcola</button>
+        
+        <div id="resultKCL" class="result"></div>
+    </div>
+
+    <div class="section">
+        <h2>Legge di Kirchhoff per le tensioni (KVL)</h2>
+        <p>La legge di Kirchhoff per le tensioni afferma che la somma algebrica delle tensioni in un circuito chiuso è zero. In altre parole, la somma delle tensioni applicate in un percorso chiuso è uguale alla somma delle tensioni generate.</p>
+        
+        <div class="law">
+            <p><strong>Formula:</strong></p>
+            <p class="formula">Σ V = 0</p>
+        </div>
+        
+        <div class="example">
+            <p>Esempio: In un circuito con tre resistori e due sorgenti di tensione, la somma delle tensioni lungo un percorso chiuso è zero. Supponiamo che la tensione in un percorso sia:</p>
+            <p>V₁ = 12 V, V₂ = -5 V, V₃ = -7 V.</p>
+            <p>La somma delle tensioni sarà:</p>
+            <p>V₁ + V₂ + V₃ = 0</p>
+            <p>12 V - 5 V - 7 V = 0 V</p>
+            <p>La legge è verificata.</p>
+        </div>
+    </div>
+
+    <!-- Calcolatrice Legge delle Tensioni di Kirchhoff (KVL) -->
+    <div class="calculator">
+        <h2>Calcolatrice Legge delle Tensioni di Kirchhoff (KVL)</h2>
+        <p>Inserisci le tensioni nel circuito chiuso per verificare la legge.</p>
+        
+        <div class="input-field">
+            <label for="voltages">Tensioni (in Volt, separati da virgola): </label>
+            <input type="text" id="voltages" placeholder="Es. 12, -5, -7">
+        </div>
+        
+        <button onclick="calculateKVL()">Calcola</button>
+        
+        <div id="resultKVL" class="result"></div>
+    </div>
+
+    <script>
+        // Funzione per calcolare la Legge delle Correnti di Kirchhoff (KCL)
+        function calculateKCL() {
+            var currentIn = parseFloat(document.getElementById('currentIn').value);
+            var currentOut = parseFloat(document.getElementById('currentOut').value);
+            
+            if (isNaN(currentIn) || isNaN(currentOut)) {
+                document.getElementById('resultKCL').innerHTML = "Per favore, inserisci valori validi.";
+                return;
+            }
+            
+            if (currentIn === currentOut) {
+                document.getElementById('resultKCL').innerHTML = "La Legge delle Correnti di Kirchhoff è verificata!";
+            } else {
+                document.getElementById('resultKCL').innerHTML = "La Legge delle Correnti di Kirchhoff NON è verificata.";
+            }
+        }
+        
+        // Funzione per calcolare la Legge delle Tensioni di Kirchhoff (KVL)
+        function calculateKVL() {
+            var voltagesInput = document.getElementById('voltages').value;
+            var voltages = voltagesInput.split(',').map(function(v) { return parseFloat(v.trim()); });
+            
+            if (voltages.some(isNaN)) {
+                document.getElementById('resultKVL').innerHTML = "Per favore, inserisci valori validi.";
+                return;
+            }
+            
+            var sumVoltages = voltages.reduce(function(sum, v) { return sum + v; }, 0);
+            
+            if (sumVoltages === 0) {
+                document.getElementById('resultKVL').innerHTML = "La Legge delle Tensioni di Kirchhoff è verificata!";
+            } else {
+                document.getElementById('resultKVL').innerHTML = "La Legge delle Tensioni di Kirchhoff NON è verificata.";
+            }
+        }
+    </script>
+
+</body>
+</html>
