@@ -996,21 +996,38 @@
   {
     "_id": 351,
     "films": [
-      "The Little Mermaid: Ariel's Beginning",
-      "The Little Mermaid (live-action film)"
+      "frozen, frozen 2 "
     ],
-    "shortFilms": [],
+    "shortFilms": ["frozen fever, frozen olaf's Adventure"],
     "tvShows": [],
-    "videoGames": [],
+    "videoGames": ["Kingdom Hearts III"],
     "parkAttractions": [],
-    "allies": [],
-    "enemies": [],
-    "sourceUrl": "https://disney.fandom.com/wiki/Queen_Athena",
-    "name": "Queen Athena",
-    "imageUrl": "https://static.wikia.nocookie.net/disney/images/4/41/Athena_TLM.jpg",
+    "allies": ["anna, kristoff, olaf, sven, mathias, yelena, honeymaren"],
+    "enemies": ["hans"],
+    "sourceUrl": "https://disney.fandom.com/wiki/elsa",
+    "name": "elsa",
+    "imageUrl": "https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311",
     "createdAt": "2021-04-12T01:34:01.940Z",
     "updatedAt": "2021-12-20T20:39:20.872Z",
-    "url": "https://api.disneyapi.dev/characters/351",
+    "url": "https://api.disneyapi.dev/characters/352",
+    "__v": 0
+
+    "_id": 351,
+    "films": [
+      "frozen, frozen 2 "
+    ],
+    "shortFilms": ["frozen fever, frozen olaf's Adventure"],
+    "tvShows": [],
+    "videoGames": ["Kingdom Hearts III"],
+    "parkAttractions": [],
+    "allies": ["elsa, kristoff, olaf, sven, mathias,"],
+    "enemies": ["hans"],
+    "sourceUrl": "https://disney.fandom.com/wiki/anna",
+    "name": "anna ",
+    "imageUrl": "https://static.wikia.nocookie.net/disney/images/0/0f/Profile_-_Anna.jpeg/revision/latest?cb=20200319054431",
+    "createdAt": "2021-04-12T01:34:01.940Z",
+    "updatedAt": "2021-12-20T20:39:20.872Z",
+    "url": "https://api.disneyapi.dev/characters/353",
     "__v": 0
   }
 ]
