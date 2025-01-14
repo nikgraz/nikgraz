@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Passaggi GTT</title>
+    <link rel="icon" type="image/x-icon" href="GTT-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="title" class="text-center">
+      <img src="GTT-logo.png" alt="GTT Logo">
+      <h3 ><i>Passaggi</i></h3>
+    </div>
+
+    <div id="main" class="container">
+        <div id="main" class="container">
+            <div class="row">
+              <label for="num" class="form-label">Inserisci il numero della fermata</label>
+              <input type="text" id="num" class="form-control" placeholder="Numero fermata">
+              <button type="button" onclick="cercaFermata()" class="btn btn-success">Conferma</button>
+            </div>
+            <div class="row p-3" id="lista">
+              <div class="col-12 text-center">
+                <h2>Lista passaggi <br>(* = in tempo reale)</h2>
+                <ul id="passaggi" class="list-group d-inline-block text-start"></ul>
+              </div>
+            </div>
+          </div>          
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+
+</html>
+
+
+
+
+
+javascript 
+let URL = "https://gpa.madbob.org/query.php?stop=";
+
+function aggiungiPassaggio(linea, orari){
+    let div = document.createElement("div");
+    let cerchio = document.createElement("div");
+    let orariDiv = document.createElement("div");
+
+    cerchio.classList.add("cerchio");
+    cerchio.innerHTML = linea;
+
+    orariDiv.classList.add("orari");
+    orari.forEach(orario => {
+        let p = document.createElement("p");
+        p.classList.add("orario");
+        p.innerHTML = orario.hour + (orario.realtime ? " *" : "");
+        orariDiv.appendChild(p);
+    });
+
+    div.appendChild(cerchio);
+    div.appendChild(orariDiv);
+    div.classList.add("col");
+    return div;
+}
+
+function mostra(array){
+    let lista = document.getElementById("lista");
+    lista.innerHTML = '';
+
+    let linee = {};
+    array.forEach(element => {
+        if (!linee[element.line]) {
+            linee[element.line] = [];
+        }
+        linee[element.line].push({ hour: element.hour, realtime: element.realtime });
+    });
+
+    for (let linea in linee) {
+        let rowDiv = document.createElement("div");
+        rowDiv.classList.add("row");
+        rowDiv.appendChild(aggiungiPassaggio(linea, linee[linea]));
+        lista.appendChild(rowDiv);
+
+        let br = document.createElement("br");
+        lista.appendChild(br);
+    }
+
+    let text = document.getElementById("num").value;
+    if (isNaN(text)) {
+        alert("Inserire un numero valido");
+    } else if (array.length == 0) {
+        alert("Fermata non trovata");
+    }
+}
+
+function cercaFermata(){
+    fetch(URL + document.getElementById("num").value)
+    .then(response => response.json())
+    .then(data => mostra(data))
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Errore nel recupero dei dati');
+    });
+    // Funzione per verificare se l'orario è passato
+function orarioPassato(orario) {
+    const [ore, minuti] = orario.split(':').map(Number);
+    const now = new Date();
+    const orarioDate = new Date();
+    orarioDate.setHours(ore, minuti, 0, 0); // Crea un oggetto Date con l'orario
+
+    return orarioDate < now; // Confronta con l'orario attuale
+}
+
+function aggiungiPassaggio(linea, orari) {
+    let div = document.createElement("div");
+    let cerchio = document.createElement("div");
+    let orariDiv = document.createElement("div");
+
+    cerchio.classList.add("cerchio");
+    cerchio.innerHTML = linea;
+
+    orariDiv.classList.add("orari");
+    orari.forEach(orario => {
+        // Se l'orario è passato, non lo aggiungere
+        if (!orarioPassato(orario.hour)) {
+            let p = document.createElement("p");
+            p.classList.add("orario");
+            p.innerHTML = orario.hour + (orario.realtime ? " *" : "");
+            orariDiv.appendChild(p);
+        }
+    });
+
+    div.appendChild(cerchio);
+    div.appendChild(orariDiv);
+    div.classList.add("col", "d-flex", "align-items-center");
+    return div;
+}
+
+function mostra(array) {
+    let lista = document.getElementById("lista");
+    lista.innerHTML = '';
+
+    if (array.length === 0) {
+        alert("Fermata non trovata");
+        return;
+    }
+
+    let linee = {};
+    array.forEach(element => {
+        if (!linee[element.line]) {
+            linee[element.line] = [];
+        }
+        linee[element.line].push({ hour: element.hour, realtime: element.realtime });
+    });
+
+    for (let linea in linee) {
+        let rowDiv = document.createElement("div");
+        rowDiv.classList.add("row", "mb-3");
+        rowDiv.appendChild(aggiungiPassaggio(linea, linee[linea]));
+        lista.appendChild(rowDiv);
+    }
+}
+}
+
+
+
+
+style.css
+body {
+    background-color: #9db4ff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-shadow: #363636;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    color: #000000;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+h3 {
+    color: #00529F;
+    font-size: .4em;
+    text-align: center;
+    margin-bottom: .5em;
+}
+
+#title {
+    font-size: 5em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+#main {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #222222;
+    margin: 0 auto;
+    padding: 2em;
+    width: 80%;
+    max-width: 600px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+input[type="text"] {
+    width: calc(100% - 100px);
+    padding: 0.5em;
+    margin-right: 1em;
+    border: 1px solid #353535;
+    border-radius: 5px;
+}
+
+button {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #13a700;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0b8500;
+}
+
+#lista {
+    margin-top: 1em;
+}
+
+#lista .col {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1em;
+    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+}
+
+.cerchio {
+    background-color: rgb(255, 251, 0);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-right: 1em;
+    font-weight: bold;
+}
+
+.orari {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.orario {
+    margin-right: 0.5em;
+}
