@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partitore e Teorema di Thévenin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJwJzY7QJXBrBA19r7jvh53g1hK7MEtdd2IZ2V8zI4V0Rp9Y7kZRfN7wYNO7" crossorigin="anonymous">
+    <style>
+        .circuito-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em;
+        }
+        .header {
+            background-color: #343a40;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header text-center">
+            <h1>Partitore di Tensione e Teorema di Thévenin</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="circuito-box">
+                    <h3>Partitore di Tensione</h3>
+                    <p>Il partitore di tensione è un circuito che utilizza due resistori in serie per suddividere una tensione applicata tra di essi. La tensione ai capi di un resistore dipende dalla proporzione tra i valori dei resistori.</p>
+                    <p class="formula">
+                        V<sub>out</sub> = V<sub>in</sub> × (R<sub>2</sub> / (R<sub>1</sub> + R<sub>2</sub>))
+                    </p>
+                    <p>In cui:</p>
+                    <ul>
+                        <li>V<sub>in</sub> è la tensione di ingresso</li>
+                        <li>V<sub>out</sub> è la tensione di uscita</li>
+                        <li>R<sub>1</sub> e R<sub>2</sub> sono i resistori</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="circuito-box">
+                    <h3>Teorema di Thévenin</h3>
+                    <p>Il teorema di Thévenin afferma che qualsiasi circuito lineare può essere rappresentato come un generatore di tensione V<sub>th</sub> in serie con una resistenza R<sub>th</sub>.</p>
+                    <p class="formula">
+                        V<sub>th</sub> = V<sub>oc</sub>, R<sub>th</sub> = (V<sub>oc</sub> / I<sub>sc</sub>)
+                    </p>
+                    <p>In cui:</p>
+                    <ul>
+                        <li>V<sub>oc</sub> è la tensione a circuito aperto</li>
+                        <li>I<sub>sc</sub> è la corrente di corto circuito</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-primary">Esegui Calcoli</button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybFfMw5BzHpr6UuF79v5Te1l78Tz6pMj9fnFO9gybFfMw5Bz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0fI7v5g7d60rB1bP4jsjMK0a0PXTpP8b8U7vvZ13lO2E+1tV" crossorigin="anonymous"></script>
+</body>
+</html>
